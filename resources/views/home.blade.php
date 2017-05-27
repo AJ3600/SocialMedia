@@ -10,6 +10,7 @@
                 <div class="panel-body">
                     Welcome {{ Auth::user()->username }}
                     <img src="{{ Auth::user()->profile_picture }}" alt="">
+                    <br /><br />
                     <div>
                       <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#posts" aria-controls="posts" role="tab" data-toggle="tab">Posts</a></li>
@@ -20,7 +21,7 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane" id="comments">
-                            
+
                         </div>
                       </div>
                     </div>
