@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use Auth;
 use Session;
+use Image;
 
 class PostController extends Controller
 {
@@ -16,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::all()->sortByDesc('id');
         return view('post.index')->withPosts($posts);
     }
 
@@ -30,6 +31,7 @@ class PostController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255|unique:posts',
+            'image' => 'image',
             'body' => 'required|max:255'
         ]);
         $post = new Post;
@@ -37,6 +39,13 @@ class PostController extends Controller
         $post->body = $request->body;
         $post->category_id = 1;
         $post->user_id = Auth::user()->id;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('/images/' . $filename);
+            Image::make($image)->resize(800, 600)->save($location);
+            $post->image = $filename;
+        }
         $post->save();
 
         Session::flash('success', 'Post was successfully added');
