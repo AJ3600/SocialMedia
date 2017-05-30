@@ -15,17 +15,15 @@ class CategoryController extends Controller
         return view('category.index')->withCategories($categories);
     }
     public function store(Request $request) {
-        if (Auth::check()) {
-            $this->validate($request, [
-                'name' => 'required|unique:categories|max:255'
-            ]);
-            $category = new Category;
-            $category->name = strtolower($request->name);
-            $category->user_id = Auth::user()->id;
-            $category->save();
+        $this->validate($request, [
+            'name' => 'required|unique:categories|max:255'
+        ]);
+        $category = new Category;
+        $category->name = strtolower($request->name);
+        $category->user_id = Auth::user()->id;
+        $category->save();
 
-            Session::flash('success', 'Category was added succesfully');
-        }
+        Session::flash('success', 'Category was added succesfully');
         return redirect('/category');
     }
     public function showAll($name) {

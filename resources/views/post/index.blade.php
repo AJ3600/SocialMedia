@@ -45,6 +45,9 @@
                   <div class="panel-heading">
                     <h3 class="panel-title">
                         Created by {{ $post->user->username }}, {{ $post->title }}
+                        <div class="pull-right">
+                            <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-link">Show Post</a>
+                        </div>
                     </h3>
                   </div>
                   <div class="panel-body">
@@ -58,7 +61,7 @@
                   <div class="panel-footer">
                       <a href="#" class="btn btn-link">Like</a>
                       <a href="#" class="btn btn-link">Dislike</a>
-                      <a href="#" class="btn btn-link">Comment</a>
+                      <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-link">Comment</a>
                   </div>
                 </div>
             @endforeach
