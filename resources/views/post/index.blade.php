@@ -46,7 +46,21 @@
                     <h3 class="panel-title">
                         Created by {{ $post->user->username }}, {{ $post->title }}
                         <div class="pull-right">
-                            <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-link">Show Post</a>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ route('post.show', [$post->id]) }}">Show Post</a></li>
+                                    <li><a href="{{ route('post.edit', [$post->id]) }}">Edit Post</a></li>
+                                    <li>
+                                        <a href="#" onclick="document.getElementById('delete').submit()">Delete Post</a>
+                                        {!! Form::open(['method' => 'DELETE', 'id' => 'delete', 'route' => ['post.delete', $post->id]]) !!}
+                                        {!! Form::close() !!}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </h3>
                   </div>
