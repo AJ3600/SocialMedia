@@ -31,3 +31,5 @@ Route::post('/category', 'CategoryController@store')->middleware('auth');
 Route::get('/post/category/{name}', 'CategoryController@showAll')->name('category.showAll')->middleware('auth');
 
 Route::post('/like', 'LikeController@index')->middleware('auth');
+
+Route::post('/comment', 'CommentController@index')->middleware('auth');
