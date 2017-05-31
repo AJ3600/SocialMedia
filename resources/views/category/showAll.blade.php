@@ -21,9 +21,21 @@
                     <br />
                     Category: <div class="badge">{{ $post->category->name }}</div>
                   </div>
-                  <div class="panel-footer">
-                      <a href="#" class="btn btn-link">Like</a>
-                      <a href="#" class="btn btn-link">Dislike</a>
+                  <div class="panel-footer" data-postid="{{ $post->id }}">
+                      @foreach (Auth::user()->likes as $like)
+                          @if ($like->post_id == $post->id)
+                              @if ($like->like)
+                                  <a href="#" class="btn btn-link like active">Like</a>
+                                  <a href="#" class="btn btn-link like">Dislike</a>
+                              @else
+                                  <a href="#" class="btn btn-link like">Like</a>
+                                  <a href="#" class="btn btn-link like active">Dislike</a>
+                              @endif
+                          @else
+                              <a href="#" class="btn btn-link like">Like</a>
+                              <a href="#" class="btn btn-link like">Dislike</a>
+                          @endif
+                      @endforeach
                       <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-link">Comment</a>
                   </div>
                 </div>

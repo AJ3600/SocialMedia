@@ -17,9 +17,26 @@
                     {{ $post->category->name }}
                 </div>
               </div>
-              <div class="panel-footer">
-                  <a href="#" class="btn btn-link">Like</a>
-                  <a href="#" class="btn btn-link">Dislike</a>
+              <div class="panel-footer" data-postid="{{ $post->id }}">
+                  @if (Auth::check())
+                      @foreach (Auth::user()->likes as $like)
+                          @if ($like->post_id == $post->id)
+                              @if ($like->like)
+                                  <a href="#" class="btn btn-link like active">Like</a>
+                                  <a href="#" class="btn btn-link like">Dislike</a>
+                              @else
+                                  <a href="#" class="btn btn-link like">Like</a>
+                                  <a href="#" class="btn btn-link like active">Dislike</a>
+                              @endif
+                          @else
+                              <a href="#" class="btn btn-link like">Like</a>
+                              <a href="#" class="btn btn-link like">Dislike</a>
+                          @endif
+                      @endforeach
+                  @else
+                      <a href="{{ url('login') }}" class="btn btn-link">Like</a>
+                      <a href="{{ url('login') }}" class="btn btn-link">Dislike</a>
+                  @endif
                   <a href="#" class="btn btn-link">Comment</a>
               </div>
             </div>
