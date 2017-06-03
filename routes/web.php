@@ -33,3 +33,6 @@ Route::get('/post/category/{name}', 'CategoryController@showAll')->name('categor
 Route::post('/like', 'LikeController@index')->middleware('auth');
 
 Route::post('/comment', 'CommentController@index')->middleware('auth');
+
+Route::get('/users', 'HomeController@listUser');
+Route::get('/users/{id}', 'HomeController@showUser')->name('user.show');

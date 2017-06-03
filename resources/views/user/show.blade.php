@@ -7,10 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <img src="{{ Auth::user()->profile_picture }}" alt="">
-                        Welcome {{ Auth::user()->username }}
+                        <img src="{{ $user->profile_picture }}" alt="">
+                        Welcome {{ $user->username }}
                         <div class="pull-right">
-                            <a href="#">View Friends</a>
+                            <a href="#" class="btn btn-link">Add Friend</a>
+                            <a href="#" class="btn btn-link">View Friends</a>
                         </div>
                     </h3>
                 </div>
@@ -24,8 +25,8 @@
                       </ul>
                       <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active fade in" id="posts">
-                            {{ Auth::user()->posts()->count() }} Posts created
-                            @foreach (Auth::user()->posts as $post)
+                            {{ $user->posts()->count() }} Posts created
+                            @foreach ($user->posts as $post)
                                 <div class="panel panel-default">
                                   <div class="panel-heading">
                                     <h3 class="panel-title">
@@ -52,14 +53,14 @@
                                   <div class="panel-body">
                                     {{ $post->body }}
                                     <br />
-                                    Category: <div class="badge">{{ $post->category->name }}</div>
+                                    Category: <div class="badge">{{ $post->category['name'] }}</div>
                                   </div>
                                 </div>
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="comments">
-                            {{ Auth::user()->comments()->count() }} Comments created
-                            @foreach (Auth::user()->comments as $comment)
+                            {{ $user->comments()->count() }} Comments created
+                            @foreach ($user->comments as $comment)
                                 <div class="panel panel-default">
                                   <div class="panel-body">
                                     <div class="col-sm-9">
@@ -73,8 +74,8 @@
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="categories">
-                            {{ Auth::user()->categories()->count() }} Categoreies created
-                            @foreach (Auth::user()->categories as $category)
+                            {{ $user->categories()->count() }} Categoreies created
+                            @foreach ($user->categories as $category)
                                 <div class="panel panel-default">
                                   <div class="panel-body">
                                     {{ $category->name }}
@@ -83,7 +84,7 @@
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="likes">
-                            @foreach (Auth::user()->likes as $like)
+                            @foreach ($user->likes as $like)
                                 @if ($like->like)
                                     <div class="panel panel-default">
                                       <div class="panel-heading">

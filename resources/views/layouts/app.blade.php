@@ -17,6 +17,9 @@
             text-decoration: underline;
             color: #222;
         }
+        .panel {
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +64,7 @@
                                     <li><a href="{{ url('/home') }}">Profile</a></li>
                                     <li><a href="{{ url('/post') }}">Post</a></li>
                                     <li><a href="{{ url('/category') }}">Category</a></li>
+                                    <li><a href="{{ url('/users') }}">Users</a></li>
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{{ route('logout') }}"

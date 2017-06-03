@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'listUser']);
     }
 
     /**
@@ -24,5 +25,13 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+    public function listUser() {
+        $users = User::orderBy('id', 'desc')->paginate(40);
+        return view('user.index')->withUsers($users);
+    }
+    public function showUser($id) {
+        $user = User::find($id);
+        return view('user.show')->withUser($user);
     }
 }

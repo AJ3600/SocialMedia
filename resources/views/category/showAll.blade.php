@@ -58,6 +58,10 @@
                               $c++;
                           @endphp
                       @endforeach
+                      @if ($i == 0)
+                          <a href="#" class="btn btn-link like">Like</a>
+                          <a href="#" class="btn btn-link like">Dislike</a>
+                      @endif
                       <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-link">Comment</a>
                   </div>
                 </div>
