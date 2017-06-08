@@ -36,3 +36,6 @@ Route::post('/comment', 'CommentController@index')->middleware('auth');
 
 Route::get('/users', 'HomeController@listUser');
 Route::get('/users/{id}', 'HomeController@showUser')->name('user.show');
+
+Route::post('/friend', 'FriendController@index')->middleware('auth');
+Route::get('/friend/{id}', 'FriendController@showFriends')->middleware('auth')->name('friend.show');

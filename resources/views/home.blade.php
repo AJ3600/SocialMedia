@@ -10,7 +10,7 @@
                         <img src="{{ Auth::user()->profile_picture }}" alt="">
                         Welcome {{ Auth::user()->username }}
                         <div class="pull-right">
-                            <a href="#">View Friends</a>
+                            <a href="{{ route('friend.show', Auth::user()->id) }}">View Friends</a>
                         </div>
                     </h3>
                 </div>

@@ -49,5 +49,11 @@ class DatabaseSeeder extends Seeder
                 'post_id' => $faker->numberBetween(1, 300)
             ]);
         }
+        for ($i=0; $i < 500; $i++) {
+            App\Friend::create([
+                'user_id_1' => $faker->numberBetween(1, 100),
+                'user_id_2' => $faker->numberBetween(1, 100)
+            ]);
+        }
     }
 }
