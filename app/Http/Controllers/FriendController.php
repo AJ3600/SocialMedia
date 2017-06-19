@@ -23,4 +23,12 @@ class FriendController extends Controller
         $user = User::find($id);
         return view('friend.show')->withUser($user);
     }
+    public function remove(Request $request) {
+        $friend = Friend::all()->where('user_id_1', '=', Auth::user()->id)->where('user_id_2', '=', $request->friend_id)->first();
+        $friend->delete();
+
+        return [
+            'friend_id' => $request->friend_id
+        ];
+    }
 }

@@ -17,7 +17,7 @@
                                 @endphp
                                 @foreach (Auth::user()->friends as $user_1)
                                     @if ($user_1->user2->id == $user->id)
-                                        <a href="#" class="btn btn-link active-like">Add Friend</a>
+                                        <a href="#" class="btn btn-link remove-friend">Remove Friend</a>
                                         @break
                                     @elseif ($i == $c)
                                         <a href="#" class="btn btn-link friend">Add Friend</a>
@@ -26,6 +26,9 @@
                                         $c++;
                                     @endphp
                                 @endforeach
+                                @if ($i == 0)
+                                    <a href="#" class="btn btn-link friend">Add Friend</a>
+                                @endif
                             @endif
                             <a href="{{ route('friend.show', $user->id) }}" class="btn btn-link">View Friends</a>
                         </div>
@@ -134,8 +137,8 @@
                                         Category: <div class="badge">{{ $like->post->category->name }}</div>
                                       </div>
                                       <div class="panel-footer" data-postid="{{ $like->post->id }}">
-                                        <a href="#" class="btn btn-link like active-like">Like</a>
-                                        <a href="#" class="btn btn-link like">Dislike</a>
+                                          <a href="#" class="btn btn-link like active-like">Like <span class="badge">{{ $like->post->likes()->where('like', '=', true)->count() }}</span></a>
+                                          <a href="#" class="btn btn-link like">Dislike <span class="badge">{{ $like->post->likes()->where('like', '=', false)->count() }}</a>
                                          <a href="{{ route('post.show', [$like->post->id]) }}" class="btn btn-link">Comment</a>
                                       </div>
                                     </div>
