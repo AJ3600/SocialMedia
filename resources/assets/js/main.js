@@ -6,7 +6,6 @@ $('.like').click(function(e) {
         isLike: like,
         post_id: postid
     }
-    console.log(e);
     axios.post('/like', data).then(response => {
         $("[data-postid='" + response['data']['post_id'] + "'] > .active-like").attr('class', 'btn btn-link like');
         e.currentTarget.className = "btn btn-link like active-like";
@@ -36,3 +35,22 @@ $('.remove-friend').click(function(e) {
         e.currentTarget.className = "btn btn-link friend";
     })
 })
+
+$('.request').click(function(e) {
+    e.preventDefault();
+    var request = e.target.previousElementSibling == null;
+    var userid = e.target.parentNode.dataset['userid'];
+    var data = {
+        isRequest: request,
+        user_id: userid
+    }
+    axios.post('/request', data).then(response => {
+        console.log(e);
+        if (response.data['true']) {
+            e.currentTarget.parentElement.innerHTML = "<span class='success'>You are now Friends</span>";
+        }
+        else {
+            e.currentTarget.parentElement.innerHTML = "<span class='danger'>You canceled the friend request</span>";
+        }
+    })
+});

@@ -57,6 +57,29 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Friend Request <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    @foreach (Auth::user()->friends1->where('approved', '=', false) as $friend1)
+                                        <li>
+                                            <img src="{{ $friend1->user1->profile_picture }}" alt="Profile Picture" width="50" height="50">
+                                            <div style="display: inline-block">
+                                                {{ $friend1->user1->username }}
+                                                <div data-userid="{{ $friend1->user1->id }}">
+                                                    <a href="#" class="btn btn-success btn-sm request">Accept</a>
+                                                    <a href="#" class="btn btn-danger btn-sm request">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                    @if (Auth::user()->friends1->where('approved', '=', false)->count() == 0)
+                                        You Don't have any Friend Request
+                                    @endif
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
 

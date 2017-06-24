@@ -31,4 +31,20 @@ class FriendController extends Controller
             'friend_id' => $request->friend_id
         ];
     }
+    public function request(Request $request) {
+        $user = Friend::all()->where('user_id_2', '=', Auth::user()->id)->where('user_id_1', '=', $request->user_id)->first();
+        if ($request->isRequest) {
+            $user->approved = true;
+            $user->save();
+            return [
+                'user_id' => $request->user_id,
+                'true' => true
+            ];
+        }
+        $user->delete();
+        return [
+            'user_id' => $request->user_id,
+            'true' => false
+        ];
+    }
 }
