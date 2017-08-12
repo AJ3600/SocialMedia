@@ -6,7 +6,15 @@
             <div class="panel panel-default" style="margin: 0; border-radius: 0;">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                    {{ $post->title }}
+                    {{ $post->title }},
+                    @if ($post->friends()->count() > 0)
+                        <small>
+                            with
+                            @foreach ($post->friends as $tag)
+                                {{ $tag->user2->username }},
+                            @endforeach
+                        </small>
+                    @endif
                     <div class="pull-right">
                         <a href="{{ url('/post') }}">Return back</a>
                     </div>
