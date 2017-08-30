@@ -7,6 +7,7 @@ use App\Post;
 use Auth;
 use Session;
 use Image;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -18,7 +19,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all()->sortByDesc('id');
-        return view('post.index')->withPosts($posts);
+        $categories = Category::all();
+        return view('post.index')->withPosts($posts)->withCategories($categories);
     }
 
     /**
@@ -37,7 +39,7 @@ class PostController extends Controller
         $post = new Post;
         $post->title = $request->title;
         $post->body = $request->body;
-        $post->category_id = 1;
+        $post->category_id = $request->category;
         $post->user_id = Auth::user()->id;
         if ($request->hasFile('image')) {
             $image = $request->file('image');

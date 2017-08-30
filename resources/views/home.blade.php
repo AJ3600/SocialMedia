@@ -28,6 +28,8 @@
                                   </div>
                                   <div class="panel-body">
                                     {{ $post->body }}
+                                    <br />
+                                    Category: <div class="badge">{{ $post->category->name }}</div>
                                   </div>
                                 </div>
                             @endforeach
