@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Social Media</title>
-        <link src="{{ asset('css/app.css') }}" />
-    </head>
-    <body>
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
         <div class="jumbotron">
             <h1>Hello, world!</h1>
-            <p>Just for a fun</p>
+            <p>Social Media Website</p>
         </div>
-        <script src="{{ asset('js/app.js') }}"></script>
-    </body>
-</html>
+    </div>
+@endsection
