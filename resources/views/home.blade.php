@@ -55,7 +55,18 @@
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="comments">
-                            All the comments created by this user will be showed here
+                            @foreach (Auth::user()->comments as $comment)
+                                <div class="panel panel-default">
+                                  <div class="panel-body">
+                                    <div class="col-sm-9">
+                                        {{ $comment->comment }}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <small><a href="{{ route('post.show', [$comment->post->id]) }}">View Post</a></small>
+                                    </div>
+                                  </div>
+                                </div>
+                            @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="categories">
                             {{ Auth::user()->categories()->count() }} Categoreies created
