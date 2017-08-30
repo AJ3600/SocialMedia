@@ -46,6 +46,10 @@
                               $c++;
                           @endphp
                       @endforeach
+                      @if ($i == 0)
+                          <a href="#" class="btn btn-link like">Like</a>
+                          <a href="#" class="btn btn-link like">Dislike</a>
+                      @endif
                   @else
                       <a href="{{ url('login') }}" class="btn btn-link">Like</a>
                       <a href="{{ url('login') }}" class="btn btn-link">Dislike</a>
