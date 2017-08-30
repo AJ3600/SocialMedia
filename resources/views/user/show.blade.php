@@ -8,7 +8,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <img src="{{ $user->profile_picture }}" alt="">
-                        Welcome {{ $user->username }}
+                        {{ $user->username }}
                         <div class="pull-right" data-friendid="{{ $user->id }}">
                             @if (Auth::check())
                                 @php
