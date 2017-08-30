@@ -24,7 +24,26 @@
                             @foreach (Auth::user()->posts as $post)
                                 <div class="panel panel-default">
                                   <div class="panel-heading">
-                                    <h3 class="panel-title">{{ $post->title }}</h3>
+                                    <h3 class="panel-title">
+                                        {{ $post->title }}
+                                        <div class="pull-right">
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </a>
+
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{{ route('post.show', [$post->id]) }}">Show Post</a></li>
+                                                    <li><a href="{{ route('post.edit', [$post->id]) }}">Edit Post</a></li>
+                                                    <li>
+                                                        <a href="#" onclick="document.getElementById('delete').submit()">Delete Post</a>
+                                                        {!! Form::open(['method' => 'DELETE', 'id' => 'delete', 'route' => ['post.delete', $post->id]]) !!}
+                                                        {!! Form::close() !!}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </h3>
                                   </div>
                                   <div class="panel-body">
                                     {{ $post->body }}
