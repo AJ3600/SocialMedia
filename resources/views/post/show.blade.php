@@ -27,32 +27,34 @@
                       @php
                           $i = Auth::user()->likes()->count();
                           $c = 1;
+                          $likeCount = $post->likes()->where('like', '=', true)->count();
+                          $dislikeCount = $post->likes()->where('like', '=', false)->count();
                       @endphp
                       @foreach (Auth::user()->likes as $like)
                           @if ($like->post_id == $post->id)
                               @if ($like->like)
-                                  <a href="#" class="btn btn-link like active-like">Like</a>
-                                  <a href="#" class="btn btn-link like">Dislike</a>
+                                  <a href="#" class="btn btn-link like active-like">Like <span class="badge">{{ $likeCount }}</span></a>
+                                  <a href="#" class="btn btn-link like">Dislike <span class="badge">{{ $dislikeCount }}</span></a>
                               @else
-                                  <a href="#" class="btn btn-link like">Like</a>
-                                  <a href="#" class="btn btn-link like active-like">Dislike</a>
+                                  <a href="#" class="btn btn-link like">Like <span class="badge">{{ $likeCount }}</span></a>
+                                  <a href="#" class="btn btn-link like active-like">Dislike <span class="badge">{{ $dislikeCount }}</span></a>
                               @endif
                               @break
                           @elseif ($i == $c)
-                              <a href="#" class="btn btn-link like">Like</a>
-                              <a href="#" class="btn btn-link like">Dislike</a>
+                              <a href="#" class="btn btn-link like">Like <span class="badge">{{ $likeCount }}</span></a>
+                              <a href="#" class="btn btn-link like">Dislike <span class="badge">{{ $dislikeCount }}</span></a>
                           @endif
                           @php
                               $c++;
                           @endphp
                       @endforeach
                       @if ($i == 0)
-                          <a href="#" class="btn btn-link like">Like</a>
-                          <a href="#" class="btn btn-link like">Dislike</a>
+                          <a href="#" class="btn btn-link like">Like <span class="badge">{{ $likeCount }}</span></a>
+                          <a href="#" class="btn btn-link like">Dislike <span class="badge">{{ $dislikeCount }}</span></a>
                       @endif
                   @else
-                      <a href="{{ url('login') }}" class="btn btn-link">Like</a>
-                      <a href="{{ url('login') }}" class="btn btn-link">Dislike</a>
+                      <a href="{{ url('login') }}" class="btn btn-link">Like <span class="badge">{{ $likeCount }}</span></a>
+                      <a href="{{ url('login') }}" class="btn btn-link">Dislike <span class="badge">{{ $dislikeCount }}</span></a>
                   @endif
                   <a href="#" class="btn btn-link">Comment</a>
               </div>

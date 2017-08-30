@@ -117,8 +117,8 @@
                                         Category: <div class="badge">{{ $like->post->category->name }}</div>
                                       </div>
                                       <div class="panel-footer" data-postid="{{ $like->post->id }}">
-                                        <a href="#" class="btn btn-link like active-like">Like</a>
-                                        <a href="#" class="btn btn-link like">Dislike</a>
+                                        <a href="#" class="btn btn-link like active-like">Like <span class="badge">{{ $like->post->likes()->where('like', '=', true)->count() }}</span></a>
+                                        <a href="#" class="btn btn-link like">Dislike <span class="badge">{{ $like->post->likes()->where('like', '=', false)->count() }}</a>
                                          <a href="{{ route('post.show', [$like->post->id]) }}" class="btn btn-link">Comment</a>
                                       </div>
                                     </div>
