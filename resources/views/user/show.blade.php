@@ -9,9 +9,25 @@
                     <h3 class="panel-title">
                         <img src="{{ $user->profile_picture }}" alt="">
                         Welcome {{ $user->username }}
-                        <div class="pull-right">
-                            <a href="#" class="btn btn-link">Add Friend</a>
-                            <a href="#" class="btn btn-link">View Friends</a>
+                        <div class="pull-right" data-friendid="{{ $user->id }}">
+                            @if (Auth::check())
+                                @php
+                                    $i = Auth::user()->friends()->count();
+                                    $c = 1;
+                                @endphp
+                                @foreach (Auth::user()->friends as $user_1)
+                                    @if ($user_1->user2->id == $user->id)
+                                        <a href="#" class="btn btn-link active-like">Add Friend</a>
+                                        @break
+                                    @elseif ($i == $c)
+                                        <a href="#" class="btn btn-link friend">Add Friend</a>
+                                    @endif
+                                    @php
+                                        $c++;
+                                    @endphp
+                                @endforeach
+                            @endif
+                            <a href="{{ route('friend.show', $user->id) }}" class="btn btn-link">View Friends</a>
                         </div>
                     </h3>
                 </div>
