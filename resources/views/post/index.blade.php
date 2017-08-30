@@ -9,7 +9,7 @@
                     {{ Session::get('success') }}
                 </div>
             @endif
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -18,6 +18,9 @@
                             @if ($errors->has('title'))
                                 <small class="text-danger">{{ $errors->first('title') }}</small>
                             @endif
+                        </div>
+                        <div class="form-group">
+                          <input type="file" class="form-control" name="image">
                         </div>
                         <div class="form-group {{ $errors->has('body') ? 'has-error' : '' }}">
                             <textarea name="body" rows="8" cols="80" class="form-control" placeholder="Enter your post"></textarea>
@@ -34,14 +37,19 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                        {{ $post->title }}
+                        Created by {{ $post->user->username }}, {{ $post->title }}
                     </h3>
                   </div>
                   <div class="panel-body">
                     {{ $post->body }}
+                    @if ($post->image != null)
+                        <img src="/images/{{ $post->image }}" alt="Image" width="100%" height="600">
+                    @endif
                   </div>
                   <div class="panel-footer">
-                    
+                      <a href="#" class="btn btn-link">Like</a>
+                      <a href="#" class="btn btn-link">Dislike</a>
+                      <a href="#" class="btn btn-link">Comment</a>
                   </div>
                 </div>
             @endforeach

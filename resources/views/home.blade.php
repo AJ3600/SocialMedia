@@ -19,7 +19,16 @@
                       </ul>
                       <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active fade in" id="posts">
-                            All the posts created by this user will be shown here
+                            @foreach (Auth::user()->posts as $post)
+                                <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                    <h3 class="panel-title">{{ $post->title }}</h3>
+                                  </div>
+                                  <div class="panel-body">
+                                    {{ $post->body }}
+                                  </div>
+                                </div>
+                            @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="comments">
                             All the comments created by this user will be showed here
