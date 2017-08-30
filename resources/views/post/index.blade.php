@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet" href="/css/select2.css">
+    <script src="/js/select2.js"></script>
     <div class="container">
         <div class="col-sm-9">
             @if (Session::has('success'))
@@ -35,6 +37,13 @@
                               @endforeach
                           </select>
                         </div>
+                        <div class="form-group">
+                            <select class="form-control select2-class" name="tags[]" multiple>
+                                @foreach (Auth::user()->friends as $friend)
+                                    <option value="{{ $friend->id }}">{{ $friend->user2->username }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <input type="submit" value="Post" class="btn btn-primary btn-block">
                     </div>
                 </div>
@@ -45,6 +54,14 @@
                   <div class="panel-heading">
                     <h3 class="panel-title">
                         Created by {{ $post->user['username'] }}, {{ $post->title }}
+                        @if ($post->friends()->count() > 0)
+                            <small>
+                                with
+                                @foreach ($post->friends as $tag)
+                                    {{ $tag->user2->username }},
+                                @endforeach
+                            </small>
+                        @endif
                         <div class="pull-right">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -112,4 +129,7 @@
             @endforeach
         </div>
     </div>
+    <script type="text/javascript">
+        $('.select2-class').select2();
+    </script>
 @endsection

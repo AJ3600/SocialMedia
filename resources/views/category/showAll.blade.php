@@ -7,7 +7,15 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                        Created by {{ $post->user->username }}, {{ $post->title }}
+                        Created by {{ $post->user->username }}, {{ $post->title }},
+                        @if ($post->friends()->count() > 0)
+                            <small>
+                                with
+                                @foreach ($post->friends as $tag)
+                                    {{ $tag->user2->username }},
+                                @endforeach
+                            </small>
+                        @endif
                         <div class="pull-right">
                             <div class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

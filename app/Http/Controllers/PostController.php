@@ -50,6 +50,9 @@ class PostController extends Controller
             $post->image = $filename;
         }
         $post->save();
+        if (isset($request->tags)) {
+            $post->friends()->sync($request->tags, false);
+        }
 
         Session::flash('success', 'Post was successfully added');
         return redirect('/post');
@@ -122,6 +125,9 @@ class PostController extends Controller
             $post->image = $filename;
         }
         $post->save();
+        if (isset($request->tags)) {
+            $post->friends()->sync($request->tags);
+        }
 
         Session::flash('success', 'Post was successfully added');
         return redirect()->back();
