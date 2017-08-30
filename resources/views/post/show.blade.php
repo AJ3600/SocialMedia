@@ -5,7 +5,12 @@
         <div class="col-sm-6 col-sm-offset-3">
             <div class="panel panel-default" style="margin: 0; border-radius: 0;">
               <div class="panel-heading">
-                <h3 class="panel-title">{{ $post->title }}</h3>
+                <h3 class="panel-title">
+                    {{ $post->title }}
+                    <div class="pull-right">
+                        <a href="{{ url('/post') }}">Return back</a>
+                    </div>
+                </h3>
               </div>
               <div class="panel-body">
                 {{ $post->body }}
@@ -19,19 +24,27 @@
               </div>
               <div class="panel-footer" data-postid="{{ $post->id }}">
                   @if (Auth::check())
+                      @php
+                          $i = Auth::user()->likes()->count();
+                          $c = 1;
+                      @endphp
                       @foreach (Auth::user()->likes as $like)
                           @if ($like->post_id == $post->id)
                               @if ($like->like)
-                                  <a href="#" class="btn btn-link like active">Like</a>
+                                  <a href="#" class="btn btn-link like active-like">Like</a>
                                   <a href="#" class="btn btn-link like">Dislike</a>
                               @else
                                   <a href="#" class="btn btn-link like">Like</a>
-                                  <a href="#" class="btn btn-link like active">Dislike</a>
+                                  <a href="#" class="btn btn-link like active-like">Dislike</a>
                               @endif
-                          @else
+                              @break
+                          @elseif ($i == $c)
                               <a href="#" class="btn btn-link like">Like</a>
                               <a href="#" class="btn btn-link like">Dislike</a>
                           @endif
+                          @php
+                              $c++;
+                          @endphp
                       @endforeach
                   @else
                       <a href="{{ url('login') }}" class="btn btn-link">Like</a>

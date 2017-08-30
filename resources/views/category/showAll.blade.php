@@ -9,7 +9,21 @@
                     <h3 class="panel-title">
                         Created by {{ $post->user->username }}, {{ $post->title }}
                         <div class="pull-right">
-                            <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-link">Show Post</a>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ route('post.show', [$post->id]) }}">Show Post</a></li>
+                                    <li><a href="{{ route('post.edit', [$post->id]) }}">Edit Post</a></li>
+                                    <li>
+                                        <a href="#" onclick="document.getElementById('delete').submit()">Delete Post</a>
+                                        {!! Form::open(['method' => 'DELETE', 'id' => 'delete', 'route' => ['post.delete', $post->id]]) !!}
+                                        {!! Form::close() !!}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </h3>
                   </div>
@@ -22,19 +36,27 @@
                     Category: <div class="badge">{{ $post->category->name }}</div>
                   </div>
                   <div class="panel-footer" data-postid="{{ $post->id }}">
+                      @php
+                          $i = Auth::user()->likes()->count();
+                          $c = 1;
+                      @endphp
                       @foreach (Auth::user()->likes as $like)
                           @if ($like->post_id == $post->id)
                               @if ($like->like)
-                                  <a href="#" class="btn btn-link like active">Like</a>
+                                  <a href="#" class="btn btn-link like active-like">Like</a>
                                   <a href="#" class="btn btn-link like">Dislike</a>
                               @else
                                   <a href="#" class="btn btn-link like">Like</a>
-                                  <a href="#" class="btn btn-link like active">Dislike</a>
+                                  <a href="#" class="btn btn-link like active-like">Dislike</a>
                               @endif
-                          @else
+                              @break
+                          @elseif ($i == $c)
                               <a href="#" class="btn btn-link like">Like</a>
                               <a href="#" class="btn btn-link like">Dislike</a>
                           @endif
+                          @php
+                              $c++;
+                          @endphp
                       @endforeach
                       <a href="{{ route('post.show', [$post->id]) }}" class="btn btn-link">Comment</a>
                   </div>
